@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoSort Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-theme="dark">
+    <main class="app">
+      <aside class="rail">
+        <div class="brand">
+          <div class="brand-mark">AI</div>
+          <div>
+            <h1>EcoSort Nexus</h1>
+            <p>Automatic Waste Segregation</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="control"><b>AI</b><span>Live Control</span></button>
+          <button class="nav-item" data-view="twin"><b>SM</b><span>Simulator</span></button>
+          <button class="nav-item" data-view="percentage"><b>%</b><span>Percentage</span></button>
+          <button class="nav-item" data-view="alerts"><b>AL</b><span>Alerts</span></button>
+          <button class="nav-item" data-view="reset"><b>RS</b><span>Reset</span></button>
+          <button class="nav-item" data-view="report"><b>RP</b><span>Report</span></button>
+          <button class="nav-item" data-view="hardware"><b>HW</b><span>Hardware</span></button>
+        </nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="kicker">AI + IoT Control System</p>
+            <h2 id="screenTitle">Live Automatic Sorting</h2>
+          </div>
+          <div class="top-actions">
+            <div class="chip online"><span></span>AI stimulated</div>
+            <div class="chip"><span></span><b id="modelState">Model loading</b></div>
+            <div class="chip"><span></span>ESP32 ready</div>
+            <button class="ghost" id="themeButton"><i data-lucide="sun-moon"></i>Theme</button>
+            <button class="primary" id="autoDemo"><i data-lucide="play"></i>Auto Demo</button>
+          </div>
+        </header>
+
+        <div class="notification" id="notification">
+          <i data-lucide="bell-ring"></i>
+          <strong id="noticeTitle">System ready</strong>
+          <span id="noticeText">Show paper, food, bottle, or covered mixed waste in front of camera.</span>
+        </div>
+
+        <section class="view active" id="control">
+          <div class="control-grid">
+            <article class="camera-panel glass">
+              <div class="panel-head">
+                <div>
+                  <p class="kicker">Laptop Webcam</p>
+                  <h3>AI Detection Zone</h3>
+                </div>
+                <div class="camera-actions">
+                  <button class="ghost" id="cameraButton"><i data-lucide="camera"></i>Start Camera</button>
+                  <button class="primary" id="liveAiButton"><i data-lucide="brain-circuit"></i>Live AI</button>
+                </div>
+              </div>
+
+              <div class="camera-stage">
+                <video id="cameraFeed" playsinline muted></video>
+                <div class="camera-placeholder">
+                  <i data-lucide="scan-face"></i>
+                  <strong>Camera simulator active</strong>
+                  <span>Use the sample buttons to simulate real webcam detection.</span>
+                </div>
+                <div class="hud"></div>
+                <div class="box" id="detectBox"><span id="boxLabel">Waiting for object</span></div>
+                <div class="scan"></div>
+              </div>
+
+              <div class="sample-row" id="sampleRow"></div>
+            </article>
+
+            <article class="decision-panel glass">
+              <p class="kicker">Current AI Decision</p>
+              <h3 id="objectName">No object detected</h3>
+              <p id="decisionText">When a person shows waste, the AI will decide recycle, organic, non-recycle, or warning.</p>
+
+              <div class="decision-card" id="decisionCard">
+                <i data-lucide="circle-dashed"></i>
+                <div>
+                  <strong id="routeName">Waiting</strong>
+                  <span id="routeRule">No servo movement yet</span>
+                </div>
+              </div>
+
+              <div class="confidence">
+                <div>
+                  <span>Confidence</span>
+                  <strong id="confidenceValue">0%</strong>
+                </div>
+                <div class="bar"><span id="confidenceBar"></span></div>
+              </div>
+
+              <div class="timeline" id="timeline"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="twin">
+          <article class="twin glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Automatic Simulation</p>
+                <h3>Smart Bin Opening Animation</h3>
+              </div>
+              <div class="bin-legend">
+                <span class="recycle-dot">Recycle</span>
+                <span class="organic-dot">Organic</span>
+                <span class="reject-dot">Non-Recycle</span>
+              </div>
+            </div>
+            <div class="visual-twin" id="visualTwin">
+              <div class="waste-drop" id="wasteDrop"></div>
+              <div class="designer-bin recycle" data-bin="recycle">
+                <div class="bin-light"></div>
+                <div class="bin-servo"></div>
+                <div class="bin-lid"></div>
+                <div class="bin-body">
+                  <div class="bin-shine"></div>
+                  <div class="bin-window"></div>
+                  <strong>Recycle</strong>
+                  <span>plastic / paper / metal</span>
+                </div>
+              </div>
+              <div class="designer-bin organic" data-bin="organic">
+                <div class="bin-light"></div>
+                <div class="bin-servo"></div>
+                <div class="bin-lid"></div>
+                <div class="bin-body">
+                  <div class="bin-shine"></div>
+                  <div class="bin-window"></div>
+                  <strong>Organic</strong>
+                  <span>food / compost</span>
+                </div>
+              </div>
+              <div class="designer-bin reject" data-bin="reject">
+                <div class="bin-light"></div>
+                <div class="bin-servo"></div>
+                <div class="bin-lid"></div>
+                <div class="bin-body">
+                  <div class="bin-shine"></div>
+                  <div class="bin-window"></div>
+                  <strong>Reject</strong>
+                  <span>packets / batteries</span>
+                </div>
+              </div>
+            </div>
+            <canvas id="binScene" class="hidden-canvas"></canvas>
+          </article>
+        </section>
+
+        <section class="view" id="percentage">
+          <article class="percentage-page glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Storage Level</p>
+                <h3>Dustbin Fill Percentage</h3>
+              </div>
+              <div class="bin-legend">
+                <span class="recycle-dot">Recycle</span>
+                <span class="organic-dot">Organic</span>
+                <span class="reject-dot">Non-Recycle</span>
+              </div>
+            </div>
+            <div class="storage-grid">
+              <div class="storage-card recycle">
+                <span>Recycle ultrasonic</span>
+                <strong id="recycleLevel">34%</strong>
+                <div><i id="recycleLevelBar"></i></div>
+                <small id="recycleWeight">8.2 kg</small>
+              </div>
+              <div class="storage-card organic">
+                <span>Organic ultrasonic</span>
+                <strong id="organicLevel">18%</strong>
+                <div><i id="organicLevelBar"></i></div>
+                <small id="organicWeight">4.4 kg</small>
+              </div>
+              <div class="storage-card reject">
+                <span>Non-recycle ultrasonic</span>
+                <strong id="rejectLevel">28%</strong>
+                <div><i id="rejectLevelBar"></i></div>
+                <small id="rejectWeight">7.1 kg</small>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="hardware">
+          <div class="hardware-grid">
+            <article class="hardware-card glass"><i data-lucide="camera"></i><span>Camera</span><strong id="cameraState">Simulator mode</strong></article>
+            <article class="hardware-card glass"><i data-lucide="brain-circuit"></i><span>AI model</span><strong id="cloudAiState">Local + optional cloud API</strong></article>
+            <article class="hardware-card glass"><i data-lucide="rotate-3d"></i><span>Servo command</span><strong id="servoState">Locked</strong></article>
+            <article class="hardware-card glass"><i data-lucide="radio-tower"></i><span>Buzzer</span><strong id="buzzerState">Idle</strong></article>
+            <article class="hardware-card glass"><i data-lucide="waves"></i><span>Ultrasonic sensors</span><strong id="sensorState">3 bins online</strong></article>
+            <article class="hardware-card glass"><i data-lucide="bell-ring"></i><span>Notification</span><strong id="alertState">Normal</strong></article>
+          </div>
+          <article class="api-card glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Cloud AI API</p>
+                <h3>Roboflow / Waste Model Endpoint</h3>
+              </div>
+              <button class="primary" id="saveApiSettings"><i data-lucide="save"></i>Save API</button>
+            </div>
+            <div class="api-form">
+              <label>
+                <span>API URL</span>
+                <input id="apiUrlInput" placeholder="https://serverless.roboflow.com/waste-classification-uwqfy/1" />
+              </label>
+              <label>
+                <span>API Key</span>
+                <input id="apiKeyInput" placeholder="Roboflow API key" type="password" />
+              </label>
+            </div>
+            <p class="reset-note">When saved, Live AI sends one scan-frame to this endpoint first. If cloud AI is unavailable, local demo AI continues as backup.</p>
+          </article>
+        </section>
+
+        <section class="view" id="alerts">
+          <article class="alert-page glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Full Bin Warning Center</p>
+                <h3>Bin Alert Messages</h3>
+              </div>
+              <button class="primary" id="acceptAlerts"><i data-lucide="check"></i>Accept Alerts</button>
+            </div>
+            <div class="alert-list" id="alertList"></div>
+          </article>
+        </section>
+
+        <section class="view" id="reset">
+          <article class="reset-page glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Cleaned Bin Reset</p>
+                <h3>Reset After Collection</h3>
+              </div>
+              <button class="primary" id="resetBins"><i data-lucide="rotate-ccw"></i>Reset All Bins</button>
+            </div>
+            <div class="reset-grid">
+              <div class="reset-card recycle"><span>Recycle before reset</span><strong id="resetRecycle">0%</strong></div>
+              <div class="reset-card organic"><span>Organic before reset</span><strong id="resetOrganic">0%</strong></div>
+              <div class="reset-card reject"><span>Non-recycle before reset</span><strong id="resetReject">0%</strong></div>
+            </div>
+            <p class="reset-note">Use reset only after worker cleaned the physical bins. A report entry will be generated before values become 0%.</p>
+          </article>
+        </section>
+
+        <section class="view" id="report">
+          <article class="report-page glass">
+            <div class="panel-head">
+              <div>
+                <p class="kicker">Collection Report</p>
+                <h3>Reset History & Warning Log</h3>
+              </div>
+              <button class="primary" id="downloadReport"><i data-lucide="download"></i>Download Report</button>
+            </div>
+            <div class="report-summary">
+              <div><span>Total resets</span><strong id="reportResetCount">0</strong></div>
+              <div><span>Warning alerts</span><strong id="reportWarningCount">0</strong></div>
+              <div><span>Last reset</span><strong id="reportLastReset">-</strong></div>
+            </div>
+            <div class="report-table" id="reportTable"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script type="module" src="./app.js?v=operation-sounds-1"></script>
+  </body>
+</html>

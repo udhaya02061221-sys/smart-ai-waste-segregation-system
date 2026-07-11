@@ -1,0 +1,216 @@
+{
+  "project": "EcoSort Nexus Waste Classifier",
+  "target_accuracy": "90%+ only after open-data pretraining plus real webcam validation",
+  "image_size": 224,
+  "minimum_images_per_class": 250,
+  "recommended_images_per_class": 800,
+  "open_source_plan": [
+    {
+      "name": "TrashNet",
+      "use_for": ["Paper", "Cardboard", "Plastic Bottle", "Glass Bottle", "Metal Can", "Chip Packet"]
+    },
+    {
+      "name": "TACO",
+      "use_for": ["Plastic Bottle", "Glass Bottle", "Metal Can", "Chip Packet", "Plastic Cover", "Mixed Covered Bag"]
+    },
+    {
+      "name": "Garbage Dataset / D.Waste",
+      "use_for": ["Paper", "Cardboard", "Plastic Bottle", "Glass Bottle", "Metal Can", "Food Waste", "Battery", "Shoe", "Cloth", "Chip Packet"]
+    },
+    {
+      "name": "RealWaste",
+      "use_for": ["Plastic Bottle", "Glass Bottle", "Metal Can", "Paper", "Cardboard", "Food Waste", "Chip Packet"]
+    }
+  ],
+  "classes": [
+    {
+      "label": "Paper",
+      "route": "recycle",
+      "weightKg": 0.01,
+      "fillImpact": 0.8,
+      "examples": ["white paper", "notebook sheet", "newspaper", "receipt", "paper cup"]
+    },
+    {
+      "label": "Notebook",
+      "route": "recycle",
+      "weightKg": 0.18,
+      "fillImpact": 4.2,
+      "examples": ["notebook", "note book", "large notebook", "small notebook", "spiral notebook", "diary"]
+    },
+    {
+      "label": "Cardboard",
+      "route": "recycle",
+      "weightKg": 0.12,
+      "fillImpact": 4,
+      "examples": ["carton", "parcel box", "brown cardboard", "corrugated box"]
+    },
+    {
+      "label": "Plastic Bottle",
+      "route": "recycle",
+      "weightKg": 0.04,
+      "fillImpact": 2.5,
+      "examples": ["water bottle", "PET bottle", "2 liter bottle", "soft drink bottle", "transparent plastic bottle"]
+    },
+    {
+      "label": "Hard Plastic Container",
+      "route": "recycle",
+      "weightKg": 0.08,
+      "fillImpact": 3,
+      "examples": ["hard plastic box", "detergent bottle", "plastic jar", "food container"]
+    },
+    {
+      "label": "Steel Bottle",
+      "route": "recycle",
+      "weightKg": 0.28,
+      "fillImpact": 2.8,
+      "examples": ["steel water bottle", "metal flask", "stainless bottle"]
+    },
+    {
+      "label": "Sip Bottle Cup",
+      "route": "recycle",
+      "weightKg": 0.05,
+      "fillImpact": 2.2,
+      "examples": ["sipper bottle", "plastic cup with straw", "sports water bottle"]
+    },
+    {
+      "label": "Glass Bottle",
+      "route": "recycle",
+      "weightKg": 0.32,
+      "fillImpact": 3,
+      "examples": ["glass bottle", "glass jar"]
+    },
+    {
+      "label": "Metal Can",
+      "route": "recycle",
+      "weightKg": 0.06,
+      "fillImpact": 1.5,
+      "examples": ["aluminium can", "tin can", "metal container"]
+    },
+    {
+      "label": "Food Waste",
+      "route": "organic",
+      "weightKg": 0.25,
+      "fillImpact": 3.5,
+      "examples": ["rice waste", "vegetable waste", "tomato", "onion", "leftover food"]
+    },
+    {
+      "label": "Banana Peel",
+      "route": "organic",
+      "weightKg": 0.05,
+      "fillImpact": 2,
+      "examples": ["banana peel", "multiple banana peels"]
+    },
+    {
+      "label": "Apple",
+      "route": "organic",
+      "weightKg": 0.15,
+      "fillImpact": 2.5,
+      "examples": ["apple", "apple core", "apple peel"]
+    },
+    {
+      "label": "Chip Packet",
+      "route": "reject",
+      "weightKg": 0.02,
+      "fillImpact": 1.5,
+      "examples": ["chips cover", "snack wrapper", "wheat packet", "multi-layer packet"]
+    },
+    {
+      "label": "Biscuit Packet",
+      "route": "reject",
+      "weightKg": 0.02,
+      "fillImpact": 1.6,
+      "examples": ["biscuit packet", "biscuit cover", "cookie wrapper", "printed snack cover"]
+    },
+    {
+      "label": "Plastic Cover",
+      "route": "reject",
+      "weightKg": 0.01,
+      "fillImpact": 1.2,
+      "examples": ["plastic bag", "carry bag", "transparent cover", "thin film"]
+    },
+    {
+      "label": "Pen",
+      "route": "reject",
+      "weightKg": 0.01,
+      "fillImpact": 0.7,
+      "examples": ["pen", "marker", "ball pen"]
+    },
+    {
+      "label": "Rubber",
+      "route": "reject",
+      "weightKg": 0.02,
+      "fillImpact": 0.9,
+      "examples": ["eraser", "rubber", "small rubber item"]
+    },
+    {
+      "label": "Phone",
+      "route": "reject",
+      "weightKg": 0.18,
+      "fillImpact": 2.4,
+      "examples": ["mobile phone", "smartphone", "e-waste phone"]
+    },
+    {
+      "label": "Phone Case",
+      "route": "reject",
+      "weightKg": 0.04,
+      "fillImpact": 1.2,
+      "examples": ["phone case", "mobile cover", "silicone case"]
+    },
+    {
+      "label": "Battery",
+      "route": "reject",
+      "weightKg": 0.03,
+      "fillImpact": 0.8,
+      "examples": ["battery", "cell", "lithium battery", "AA battery"]
+    },
+    {
+      "label": "Shoe",
+      "route": "reject",
+      "weightKg": 0.7,
+      "fillImpact": 6,
+      "examples": ["shoe", "slipper", "sandal"]
+    },
+    {
+      "label": "Broken Slipper",
+      "route": "reject",
+      "weightKg": 0.32,
+      "fillImpact": 4.8,
+      "examples": ["broken slipper", "torn slipper", "damaged footwear"]
+    },
+    {
+      "label": "Rubber Slipper",
+      "route": "reject",
+      "weightKg": 0.28,
+      "fillImpact": 4.3,
+      "examples": ["rubber slipper", "rubber sandal", "foam slipper"]
+    },
+    {
+      "label": "Leather Slipper",
+      "route": "reject",
+      "weightKg": 0.38,
+      "fillImpact": 4.9,
+      "examples": ["leather slipper", "leather sandal", "brown slipper"]
+    },
+    {
+      "label": "Cloth",
+      "route": "reject",
+      "weightKg": 0.25,
+      "fillImpact": 4,
+      "examples": ["cloth", "textile", "fabric", "old shirt"]
+    },
+    {
+      "label": "Transparent Same Category Bundle",
+      "route": "auto_route_by_inside_majority",
+      "weightKg": 0,
+      "fillImpact": 0,
+      "examples": ["transparent bag with only bottles", "transparent cover with only paper", "transparent bag with only food waste"]
+    },
+    {
+      "label": "Mixed Covered Bag",
+      "route": "warning",
+      "weightKg": 0,
+      "fillImpact": 0,
+      "examples": ["closed trash bag", "opaque cover", "mixed transparent bag", "unknown bundle"]
+    }
+  ]
+}

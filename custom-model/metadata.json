@@ -1,0 +1,18 @@
+{
+  "labels": [
+    "Paper",
+    "Cardboard",
+    "Plastic Bottle",
+    "Glass Bottle",
+    "Metal Can",
+    "Food Waste",
+    "Banana Peel",
+    "Apple",
+    "Chip Packet",
+    "Mixed Covered Bag"
+  ],
+  "imageSize": 224,
+  "preprocess": "embedded_mobilenet_v2",
+  "source": "TrashNet + TACO + optional user photos",
+  "validationAccuracy": 0.8010075688362122
+}
